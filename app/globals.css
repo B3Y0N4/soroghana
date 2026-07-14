@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  /* Soro Ghana brand */
+  --color-gold:        #E8A020;
+  --color-gold-dark:   #C4861A;
+  --color-gold-light:  #FEF7E6;
+  --color-gold-50:     #FFFBF0;
+  --color-soro-black:  #111111;
+  --color-charcoal:    #1C1C1E;
+  --color-ghana-red:   #CE1126;
+  --color-ghana-green: #006B3F;
+
+  /* Neutrals */
+  --color-ink:        #111111;
+  --color-muted:      #6B7280;
+  --color-page-bg:    #FAFAF8;
+  --color-border-col: #E5E7EB;
+  --color-card-bg:    #FFFFFF;
+
+  /* Typography */
+  --font-display: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  --font-body:    var(--font-inter), 'Inter', sans-serif;
+
+  /* Radius */
+  --radius-card: 1rem;
+  --radius-btn:  0.5rem;
+  --radius-pill: 9999px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.07), 0 1px 2px -1px rgb(0 0 0 / 0.05);
+  --shadow-lg:   0 10px 30px -5px rgb(0 0 0 / 0.10);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background-color: var(--color-page-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display { font-family: var(--font-display); }
+
+/* No scrollbar utility */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Nav height offset */
+.pt-nav { padding-top: 72px; }
