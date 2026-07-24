@@ -2,8 +2,9 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import ProviderCard from '@/components/ProviderCard'
 import Link from 'next/link'
-import { categories } from '@/lib/categories'
+import { categories, allLanguages } from '@/lib/categories'
 import { getFeaturedProviders } from '@/lib/helpers'
+import { db } from '@/lib/db'
 
 const steps = [
   {
@@ -23,15 +24,23 @@ const steps = [
   },
 ]
 
-const stats = [
-  { n: '500+',  l: 'Verified Pros'     },
-  { n: '6',     l: 'Categories'        },
-  { n: '11+',   l: 'Languages'         },
-  { n: '4.9★',  l: 'Average Rating'    },
-]
-
 export default async function Home() {
-  const featuredProviders = await getFeaturedProviders()
+  const [featuredProviders, helperCount, ratingAgg] = await Promise.all([
+    getFeaturedProviders(),
+    db.helper.count({ where: { status: 'active' } }),
+    db.helper.aggregate({ where: { status: 'active' }, _avg: { rating: true } }),
+  ])
+
+  const avgRating = ratingAgg._avg.rating ? ratingAgg._avg.rating.toFixed(1) : '—'
+
+  // Real counts only — a fabricated "500+ pros" undercuts the exact trust
+  // this platform is selling once a visitor clicks through to /browse.
+  const stats = [
+    { n: `${helperCount}`,              l: 'Verified Pros'  },
+    { n: `${categories.length}`,        l: 'Categories'     },
+    { n: `${allLanguages.length}+`,     l: 'Languages'      },
+    { n: helperCount ? `${avgRating}★` : '—', l: 'Average Rating' },
+  ]
 
   return (
     <>

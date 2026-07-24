@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Soro Ghana
 
-## Getting Started
+Marketplace connecting vetted Ghanaian professionals (translators, fixers, developers, on-ground services) with local and international clients — built as an AI-coordinated human-assistance network. See project memory / architecture notes for the full business model.
 
-First, run the development server:
+## Setup
+
+```bash
+npm install
+```
+
+Copy `.env` and fill in:
+
+- `DATABASE_URL` — Postgres connection string (Supabase: Project Settings > Database > Connection string > URI, "Transaction pooler" variant)
+- `ADMIN_PASSWORD` / `SESSION_SECRET` — gate the `/admin` ops console (see `proxy.ts`, `lib/admin-session.ts`)
+- `STRIPE_SECRET_KEY` / `PAYSTACK_SECRET_KEY` — optional until you're actually charging/paying out (see `lib/payments/`)
+
+Then set up the database:
+
+```bash
+npx prisma migrate dev --name init   # creates tables
+npx prisma db seed                   # loads the 8 sample providers from lib/providers.ts
+```
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## What's real vs. stubbed
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Real**: post-job / join forms persist to Postgres; `/browse` and provider profiles read from the DB; `/admin` is a working manual matching + KYC console (this stands in for the AI Coordinator until there's enough match history to automate it).
+- **Stubbed on purpose**: `lib/payments/` has real Stripe/Paystack integration code, but it throws until you set the corresponding env var — there's no fake "success" path. GPS tracking is intentionally not built yet; the plan is WhatsApp-reported check-ins first (see `Engagement.checkInsJson`), real GPS only if volume demands it.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploying
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+If deploying this (e.g. to Vercel), set the same env vars above in the platform's project settings — `.env` is gitignored and won't travel with the repo.
