@@ -1,11 +1,11 @@
 'use client'
 
-import { Suspense, useState, useMemo } from 'react'
+import { Suspense, useState, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import ProviderCard from '@/components/ProviderCard'
-import { providers } from '@/lib/providers'
+import type { Provider } from '@/lib/providers'
 import { categories, allLanguages } from '@/lib/categories'
 import { Search, SlidersHorizontal, X } from 'lucide-react'
 
@@ -14,11 +14,20 @@ function BrowseInner() {
   const initCat      = params.get('cat')  ?? ''
   const initLang     = params.get('lang') ?? ''
 
+  const [providers, setProviders] = useState<Provider[]>([])
+  const [loading,  setLoading]  = useState(true)
   const [query,    setQuery]    = useState('')
   const [selCat,   setSelCat]   = useState(initCat)
   const [selLang,  setSelLang]  = useState(initLang)
   const [showFilt, setShowFilt] = useState(false)
   const [sortBy,   setSortBy]   = useState<'rating' | 'rate_asc' | 'rate_desc' | 'jobs'>('rating')
+
+  useEffect(() => {
+    fetch('/api/helpers')
+      .then(res => res.json())
+      .then(setProviders)
+      .finally(() => setLoading(false))
+  }, [])
 
   const filtered = useMemo(() => {
     let list = [...providers]
@@ -43,7 +52,7 @@ function BrowseInner() {
     }
 
     return list
-  }, [selCat, selLang, query, sortBy])
+  }, [providers, selCat, selLang, query, sortBy])
 
   const clearFilters = () => {
     setSelCat('')
@@ -134,7 +143,9 @@ function BrowseInner() {
 
         {/* Results */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {filtered.length === 0 ? (
+          {loading ? (
+            <div className="text-center py-20 text-muted text-sm">Loading professionals…</div>
+          ) : filtered.length === 0 ? (
             <div className="text-center py-20">
               <div className="text-4xl mb-4">🔍</div>
               <h3 className="font-display font-semibold text-ink text-lg mb-2">No matches found</h3>

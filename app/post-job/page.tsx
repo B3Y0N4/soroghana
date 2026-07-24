@@ -21,6 +21,8 @@ interface JobForm {
 
 export default function PostJobPage() {
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
   const [form, setForm] = useState<JobForm>({
     title: '', description: '', category: '', language: '', location: '',
     budget: '', timeline: '', contactName: '', contactPhone: '', contactEmail: '',
@@ -29,6 +31,25 @@ export default function PostJobPage() {
   const set = (k: keyof JobForm, v: string) => setForm(f => ({ ...f, [k]: v }))
 
   const valid = form.title && form.description && form.category && form.contactName && form.contactPhone
+
+  const submit = async () => {
+    if (!valid || submitting) return
+    setSubmitting(true)
+    setError('')
+    try {
+      const res = await fetch('/api/job-requests', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (!res.ok) throw new Error('Failed to post job')
+      setSubmitted(true)
+    } catch {
+      setError('Something went wrong posting your job. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   if (submitted) {
     return (
@@ -160,12 +181,14 @@ export default function PostJobPage() {
               </div>
             </div>
 
+            {error && <p className="text-sm text-ghana-red">{error}</p>}
+
             <button
-              onClick={() => valid && setSubmitted(true)}
-              disabled={!valid}
+              onClick={submit}
+              disabled={!valid || submitting}
               className="w-full flex items-center justify-center gap-2 bg-gold text-soro-black font-bold py-3.5 rounded-btn text-sm hover:bg-gold-dark transition-colors disabled:opacity-40"
             >
-              Post Job — It's Free <ArrowRight className="w-4 h-4" />
+              {submitting ? 'Posting…' : "Post Job — It's Free"} <ArrowRight className="w-4 h-4" />
             </button>
           </div>
 

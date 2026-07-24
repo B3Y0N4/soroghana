@@ -2,12 +2,8 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
-import { providers, getProviderBySlug } from '@/lib/providers'
+import { getProviderBySlug } from '@/lib/helpers'
 import { Star, CheckCircle, MapPin, Clock, MessageCircle, ArrowLeft, Briefcase, TrendingUp } from 'lucide-react'
-
-export function generateStaticParams() {
-  return providers.map(p => ({ slug: p.slug }))
-}
 
 function Stars({ rating, size = 'sm' }: { rating: number; size?: 'sm' | 'lg' }) {
   const cls = size === 'lg' ? 'w-5 h-5' : 'w-3.5 h-3.5'
@@ -23,14 +19,21 @@ function Stars({ rating, size = 'sm' }: { rating: number; size?: 'sm' | 'lg' }) 
   )
 }
 
+const tierLabels: Record<string, string> = {
+  standard_helper:      'Standard Helper',
+  business_assistant:   'Business Assistant',
+  executive_translator: 'Executive Translator',
+}
+
 const availLabel = {
   available: { text: 'Available now',  color: 'text-emerald-600 bg-emerald-50 border-emerald-200' },
   busy:      { text: 'Currently busy', color: 'text-amber-600  bg-amber-50  border-amber-200'   },
   away:      { text: 'Away',           color: 'text-gray-500   bg-gray-50   border-gray-200'    },
 }
 
-export default function ProviderProfile({ params }: { params: { slug: string } }) {
-  const provider = getProviderBySlug(params.slug)
+export default async function ProviderProfile({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const provider = await getProviderBySlug(slug)
   if (!provider) notFound()
 
   const avail = availLabel[provider.availability]
@@ -220,6 +223,12 @@ export default function ProviderProfile({ params }: { params: { slug: string } }
                     <div className="flex items-center gap-1.5 pt-1 text-gold">
                       <CheckCircle className="w-3.5 h-3.5" />
                       <span className="font-medium">Identity verified</span>
+                    </div>
+                  )}
+                  {provider.tier && provider.tier !== 'unverified' && (
+                    <div className="flex justify-between pt-1">
+                      <span>Trust tier</span>
+                      <span className="text-ink font-medium">{tierLabels[provider.tier]}</span>
                     </div>
                   )}
                 </div>

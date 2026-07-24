@@ -32,6 +32,8 @@ const perks = [
 
 export default function JoinPage() {
   const [step, setStep] = useState<Step>('basics')
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
   const [form, setForm] = useState<FormData>({
     name: '', location: '', whatsapp: '', email: '', title: '', bio: '',
     categories: [], languages: [], skills: '', hourlyRate: '', dayRate: '',
@@ -39,6 +41,25 @@ export default function JoinPage() {
 
   const set = (key: keyof FormData, val: string | string[]) =>
     setForm(f => ({ ...f, [key]: val }))
+
+  const submit = async () => {
+    if (!form.hourlyRate || submitting) return
+    setSubmitting(true)
+    setError('')
+    try {
+      const res = await fetch('/api/helpers', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (!res.ok) throw new Error('Failed to submit profile')
+      setStep('done')
+    } catch {
+      setError('Something went wrong submitting your profile. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   const toggleItem = (key: 'categories' | 'languages', val: string) => {
     const arr = form[key]
@@ -60,10 +81,10 @@ export default function JoinPage() {
               <CheckCircle className="w-8 h-8 text-emerald-500" />
             </div>
             <h1 className="font-display font-bold text-2xl text-ink mb-3">
-              You're on the list, {form.name.split(' ')[0]}!
+              You&apos;re on the list, {form.name.split(' ')[0]}!
             </h1>
             <p className="text-muted text-sm leading-relaxed mb-8">
-              We'll review your profile and reach out on WhatsApp within 24 hours to complete your verification and go live. Welcome to Soro Ghana.
+              We&apos;ll review your profile and reach out on WhatsApp within 24 hours to complete your verification and go live. Welcome to Soro Ghana.
             </p>
             <a
               href={`/`}
@@ -259,16 +280,18 @@ export default function JoinPage() {
                     <strong className="text-soro-black">Zero commission on your first 3 jobs.</strong> After that, Soro Ghana takes a small platform fee to keep the marketplace running. We only earn when you earn.
                   </div>
 
+                  {error && <p className="text-sm text-ghana-red">{error}</p>}
+
                   <div className="flex gap-3">
                     <button onClick={() => setStep('skills')} className="flex items-center gap-2 border border-border-col text-ink font-semibold px-4 py-3 rounded-btn text-sm hover:border-gold hover:text-gold transition-colors">
                       <ArrowLeft className="w-4 h-4" /> Back
                     </button>
                     <button
-                      onClick={() => setStep('done')}
-                      disabled={!form.hourlyRate}
+                      onClick={submit}
+                      disabled={!form.hourlyRate || submitting}
                       className="flex-1 flex items-center justify-center gap-2 bg-soro-black text-white font-bold py-3 rounded-btn text-sm hover:bg-charcoal transition-colors disabled:opacity-40"
                     >
-                      Submit Profile <ArrowRight className="w-4 h-4" />
+                      {submitting ? 'Submitting…' : 'Submit Profile'} <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
                 </div>

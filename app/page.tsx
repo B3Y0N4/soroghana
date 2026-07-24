@@ -3,9 +3,7 @@ import Footer from '@/components/Footer'
 import ProviderCard from '@/components/ProviderCard'
 import Link from 'next/link'
 import { categories } from '@/lib/categories'
-import { providers } from '@/lib/providers'
-
-const featuredProviders = providers.filter((p) => p.featured)
+import { getFeaturedProviders } from '@/lib/helpers'
 
 const steps = [
   {
@@ -32,7 +30,9 @@ const stats = [
   { n: '4.9★',  l: 'Average Rating'    },
 ]
 
-export default function Home() {
+export default async function Home() {
+  const featuredProviders = await getFeaturedProviders()
+
   return (
     <>
       <Nav />
@@ -160,7 +160,7 @@ export default function Home() {
           <div className="flex items-end justify-between mb-10">
             <div>
               <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-1">Vetted Professionals</p>
-              <h2 className="font-display font-bold text-3xl sm:text-4xl text-ink">Meet Ghana's best.</h2>
+              <h2 className="font-display font-bold text-3xl sm:text-4xl text-ink">Meet Ghana&apos;s best.</h2>
               <p className="text-muted mt-2 text-sm">Every pro is identity-verified. Real reviews from real clients.</p>
             </div>
             <Link href="/browse" className="hidden sm:block text-sm font-semibold text-gold hover:text-gold-dark transition-colors">
@@ -245,7 +245,7 @@ export default function Home() {
           <div className="text-4xl mb-5">🇬🇭</div>
           <h2 className="font-display font-bold text-white text-3xl sm:text-4xl leading-tight mb-4">
             Are you a skilled Ghanaian?<br />
-            <span className="text-gold">Get paid what you're worth.</span>
+            <span className="text-gold">Get paid what you&apos;re worth.</span>
           </h2>
           <p className="text-white/50 text-base max-w-lg mx-auto mb-8 leading-relaxed">
             Stop working for a fixed salary that undervalues what you bring.
@@ -256,7 +256,7 @@ export default function Home() {
               href="/join"
               className="bg-gold hover:bg-gold-dark text-soro-black font-bold px-8 py-4 rounded-btn text-sm transition-colors"
             >
-              Start Earning — It's Free
+              Start Earning — It&apos;s Free
             </Link>
             <Link
               href="/how-it-works"

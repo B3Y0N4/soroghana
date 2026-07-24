@@ -1,0 +1,142 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Multi-value fields (skills, languages, categories) are stored as
+// comma-separated strings, not native arrays/enums — SQLite doesn't
+// support either, and dataset size is small enough to filter in app code
+// (matches the existing in-memory filtering in app/browse/page.tsx).
+
+model Helper {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  name          String
+  initials      String
+  role          String
+  title         String
+  bio           String
+  tagline       String?
+  skillsCsv     String
+  hourlyRate    Int
+  dayRate       Int?
+  location      String
+  languagesCsv  String
+  categoriesCsv String
+  avatar        String   @default("🧑")
+  whatsapp      String?
+  email         String?
+  availability  String   @default("available") // available | busy | away
+  responseTime  String?
+  completedJobs Int      @default(0)
+  rating        Float    @default(0)
+  reviewCount   Int      @default(0)
+  memberSince   String?
+  successRate   Int?
+  featured      Boolean  @default(false)
+  status        String   @default("pending") // pending | active | suspended — new signups start pending until ops approves
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  kyc         KYCRecord?
+  reviews     Review[]
+  matches     Match[]
+  engagements Engagement[]
+}
+
+model KYCRecord {
+  id                   String   @id @default(cuid())
+  helper               Helper   @relation(fields: [helperId], references: [id], onDelete: Cascade)
+  helperId             String   @unique
+  ghanaCardVerified    Boolean  @default(false)
+  ghanaCardNumber      String?
+  policeCheckStatus    String   @default("not_started") // not_started | submitted | passed | failed
+  videoInterviewStatus String   @default("not_scheduled") // not_scheduled | scheduled | completed | failed
+  tier                 String   @default("unverified") // unverified | standard_helper | business_assistant | executive_translator
+  notes                String?
+  updatedAt            DateTime @updatedAt
+}
+
+model JobRequest {
+  id           String   @id @default(cuid())
+  title        String
+  description  String
+  category     String
+  language     String?
+  location     String?
+  budget       String?
+  timeline     String?
+  contactName  String
+  contactPhone String
+  contactEmail String?
+  status       String   @default("open") // open | matched | in_progress | completed | cancelled
+  createdAt    DateTime @default(now())
+
+  matches    Match[]
+  engagement Engagement?
+}
+
+model Match {
+  id           String     @id @default(cuid())
+  jobRequest   JobRequest @relation(fields: [jobRequestId], references: [id], onDelete: Cascade)
+  jobRequestId String
+  helper       Helper     @relation(fields: [helperId], references: [id], onDelete: Cascade)
+  helperId     String
+  rank         Int        @default(1)
+  status       String     @default("offered") // offered | accepted | declined
+  matchedBy    String     @default("ops") // ops | ai — lets the coordinator be swapped later without a schema change
+  createdAt    DateTime   @default(now())
+
+  @@unique([jobRequestId, helperId])
+}
+
+model Engagement {
+  id           String     @id @default(cuid())
+  jobRequest   JobRequest @relation(fields: [jobRequestId], references: [id], onDelete: Cascade)
+  jobRequestId String     @unique
+  helper       Helper     @relation(fields: [helperId], references: [id], onDelete: Cascade)
+  helperId     String
+  status       String     @default("scheduled") // scheduled | checked_in | in_progress | completed | cancelled
+  startedAt    DateTime?
+  endedAt      DateTime?
+  checkInsJson String? // JSON array of {at, note} — MVP WhatsApp-reported check-ins, not live GPS
+  createdAt    DateTime   @default(now())
+
+  payment Payment?
+}
+
+model Payment {
+  id                String     @id @default(cuid())
+  engagement        Engagement @relation(fields: [engagementId], references: [id], onDelete: Cascade)
+  engagementId      String     @unique
+  chargeCurrency    String     @default("USD")
+  chargeAmount      Int // minor units (cents)
+  chargeStatus      String     @default("pending") // pending | charged | failed | refunded
+  chargeReference   String? // Stripe payment intent id
+  payoutCurrency    String     @default("GHS")
+  payoutAmount      Int // minor units (pesewas)
+  payoutStatus      String     @default("pending") // pending | paid | failed
+  payoutReference   String? // Paystack/Hubtel transfer id
+  platformFeeAmount Int        @default(0)
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+}
+
+model Review {
+  id           String   @id @default(cuid())
+  helper       Helper   @relation(fields: [helperId], references: [id], onDelete: Cascade)
+  helperId     String
+  reviewerName String
+  rating       Int
+  title        String?
+  body         String
+  clientType   String?
+  createdAt    DateTime @default(now())
+}

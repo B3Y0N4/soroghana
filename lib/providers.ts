@@ -21,6 +21,7 @@
   rating:        number
   reviewCount:   number
   verified:      boolean
+  tier?:         'unverified' | 'standard_helper' | 'business_assistant' | 'executive_translator'
   memberSince:   string
   successRate:   number
   featured:      boolean
