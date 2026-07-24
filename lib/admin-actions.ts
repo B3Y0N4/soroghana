@@ -45,3 +45,48 @@ export async function setHelperStatus(helperId: string, status: 'pending' | 'act
   revalidatePath('/admin/helpers')
   revalidatePath('/browse')
 }
+
+// A visitor picked one of the offered helpers (confirmed by ops over
+// WhatsApp, since there's no in-app accept flow yet). Turns the offer into
+// the actual booked job and closes out the other offers on this request.
+export async function acceptMatch(matchId: string) {
+  const match = await db.match.findUniqueOrThrow({ where: { id: matchId } })
+
+  await db.$transaction([
+    db.match.update({ where: { id: matchId }, data: { status: 'accepted' } }),
+    db.match.updateMany({
+      where: { jobRequestId: match.jobRequestId, id: { not: matchId } },
+      data: { status: 'declined' },
+    }),
+    db.jobRequest.update({ where: { id: match.jobRequestId }, data: { status: 'in_progress' } }),
+    db.engagement.create({
+      data: { jobRequestId: match.jobRequestId, helperId: match.helperId, status: 'scheduled' },
+    }),
+  ])
+
+  revalidatePath('/admin/jobs')
+}
+
+export async function updateEngagementStatus(
+  engagementId: string,
+  status: 'scheduled' | 'checked_in' | 'in_progress' | 'completed' | 'cancelled'
+) {
+  const timestamps: Record<string, object> = {
+    in_progress: { startedAt: new Date() },
+    completed: { endedAt: new Date() },
+  }
+
+  const engagement = await db.engagement.update({
+    where: { id: engagementId },
+    data: { status, ...(timestamps[status] ?? {}) },
+  })
+
+  if (status === 'completed' || status === 'cancelled') {
+    await db.jobRequest.update({
+      where: { id: engagement.jobRequestId },
+      data: { status: status === 'completed' ? 'completed' : 'cancelled' },
+    })
+  }
+
+  revalidatePath('/admin/jobs')
+}
