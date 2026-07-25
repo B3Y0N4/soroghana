@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation'
 import { ArrowRight } from 'lucide-react'
 
 const EXAMPLES = [
+  'Airport pickup + SIM card, landing Thursday at Kotoka',
   'French-speaking business assistant for 3 days in Accra',
-  'Inspect a warehouse in Tema before I wire payment',
-  'Translator + driver for a factory visit outside Kumasi',
+  'Someone to help me buy fabric and gold at Makola Market',
 ]
 
 export default function RequestHero() {

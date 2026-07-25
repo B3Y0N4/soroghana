@@ -66,11 +66,7 @@ export default function HowItWorksPage() {
 
         {/* Hero */}
         <div className="bg-soro-black py-16 px-4 relative overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-0.5 flex">
-            <div className="flex-1 bg-ghana-red" />
-            <div className="flex-1 bg-gold" />
-            <div className="flex-1 bg-ghana-green" />
-          </div>
+          <div className="absolute top-0 left-0 right-0 h-px bg-gold/40" />
           <div className="max-w-3xl mx-auto text-center relative z-10">
             <h1 className="font-display font-bold text-white text-3xl sm:text-4xl mb-3">
               Coordinated, Not Just Listed

@@ -16,10 +16,12 @@ const trustBar = [
 ]
 
 const segments = [
-  { title: 'Trade Delegations', body: 'Interpreters, procurement officers, and factory-floor fixers for multi-day visits — briefed and ready before you land.' },
-  { title: 'Business Travelers & Investors', body: 'Due diligence on the ground: warehouse inspections, supplier verification, and a business assistant who knows who to call.' },
+  { title: 'Trade Delegations & Investors', body: 'Interpreters, procurement officers, and factory-floor fixers for multi-day visits — briefed and ready before you land.' },
   { title: 'Diaspora & Family', body: 'A trusted person to handle a property visit, a procurement trip, or a family matter you can’t be there for yourself.' },
+  { title: 'Students', body: 'University registration, housing, opening a bank account — someone who’s done it before, on the ground with you.' },
+  { title: 'Medical Visitors', body: 'Hospital navigation, appointment booking, translation, medicine pickup — for care that can’t wait for a tour guide.' },
   { title: 'NGOs & Development Orgs', body: 'Local navigators and translators for field visits, vetted the same way as everyone else on the platform.' },
+  { title: 'Travelers', body: 'From the airport to hidden restaurants to a private driver for the day — the parts of Ghana a search engine can’t show you.' },
 ]
 
 const steps = [
@@ -46,11 +48,7 @@ export default async function Home() {
 
       {/* HERO */}
       <section className="relative min-h-[94vh] flex flex-col bg-soro-black pt-nav overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-1 flex">
-          <div className="flex-1 bg-ghana-red" />
-          <div className="flex-1 bg-gold" />
-          <div className="flex-1 bg-ghana-green" />
-        </div>
+        <div className="absolute top-0 left-0 right-0 h-px bg-gold/40" />
 
         <div className="absolute inset-0 opacity-[0.035]"
           style={{
@@ -113,10 +111,10 @@ export default async function Home() {
       <section className="bg-white py-20 px-4 border-b border-border-col">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-2">Built for Real Trips, Not Sightseeing</p>
+            <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-2">Whatever Brought You to Ghana</p>
             <h2 className="font-display font-bold text-3xl sm:text-4xl text-ink">Who we serve.</h2>
           </div>
-          <div className="grid sm:grid-cols-2 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {segments.map(s => (
               <div key={s.title} className="border border-border-col rounded-card p-6">
                 <h3 className="font-display font-semibold text-ink text-base mb-2">{s.title}</h3>
@@ -258,11 +256,7 @@ export default async function Home() {
 
       {/* JOIN CTA */}
       <section className="bg-soro-black py-20 px-4 relative overflow-hidden">
-        <div className="absolute bottom-0 left-0 right-0 h-1 flex">
-          <div className="flex-1 bg-ghana-red" />
-          <div className="flex-1 bg-gold" />
-          <div className="flex-1 bg-ghana-green" />
-        </div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gold/40" />
         <div className="absolute inset-0 opacity-[0.035]"
           style={{
             backgroundImage: `radial-gradient(circle at 1px 1px, #E8A020 1px, transparent 0)`,

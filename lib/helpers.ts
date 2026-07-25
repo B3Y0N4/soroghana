@@ -4,11 +4,13 @@ import type { Prisma } from './generated/prisma/client'
 
 type HelperRow = Prisma.HelperGetPayload<{ include: { kyc: true; reviews: true } }>
 
+// One accent family (gold/black), not the flag palette — badge weight signals
+// tier depth instead of borrowing red/green for "meaning."
 const tierBadge: Record<string, { tag: string; tagColor: string }> = {
-  executive_translator: { tag: 'Top Rated', tagColor: 'bg-ghana-green text-white' },
-  business_assistant:   { tag: 'Verified',  tagColor: 'bg-gold text-soro-black' },
-  standard_helper:      { tag: 'Verified',  tagColor: 'bg-gold text-soro-black' },
-  unverified:           { tag: 'New',       tagColor: 'bg-gray-200 text-ink' },
+  executive_translator: { tag: 'Top Tier', tagColor: 'bg-soro-black text-gold border border-gold/40' },
+  business_assistant:   { tag: 'Verified', tagColor: 'bg-gold text-soro-black' },
+  standard_helper:      { tag: 'Verified', tagColor: 'bg-gold text-soro-black' },
+  unverified:           { tag: 'New',      tagColor: 'bg-gray-200 text-ink' },
 }
 
 export function helperToProvider(h: HelperRow): Provider {
