@@ -1,6 +1,10 @@
 import Link from 'next/link'
 import { db } from '@/lib/db'
 
+// Always render per-request — this shows live KYC/job data behind an auth
+// gate in proxy.ts; it must never be baked into the build as a static page.
+export const dynamic = 'force-dynamic'
+
 export default async function AdminDashboard() {
   const [openJobs, pendingHelpers, activeHelpers] = await Promise.all([
     db.jobRequest.count({ where: { status: 'open' } }),

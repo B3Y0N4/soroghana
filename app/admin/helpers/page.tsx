@@ -15,6 +15,9 @@ async function saveKyc(helperId: string, formData: FormData) {
   })
 }
 
+// Always render per-request — see app/admin/page.tsx for why.
+export const dynamic = 'force-dynamic'
+
 export default async function AdminHelpersPage() {
   const helpers = await db.helper.findMany({
     include: { kyc: true },

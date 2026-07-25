@@ -9,6 +9,9 @@ async function matchAction(jobRequestId: string, formData: FormData) {
 
 const ENGAGEMENT_STEPS = ['scheduled', 'checked_in', 'in_progress', 'completed'] as const
 
+// Always render per-request — see app/admin/page.tsx for why.
+export const dynamic = 'force-dynamic'
+
 export default async function AdminJobsPage() {
   const [jobs, activeHelpers] = await Promise.all([
     db.jobRequest.findMany({
