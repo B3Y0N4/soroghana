@@ -2,6 +2,7 @@
 
 import { Suspense, useState, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import ProviderCard from '@/components/ProviderCard'
@@ -16,6 +17,7 @@ function BrowseInner() {
 
   const [providers, setProviders] = useState<Provider[]>([])
   const [loading,  setLoading]  = useState(true)
+  const [loadError, setLoadError] = useState(false)
   const [query,    setQuery]    = useState('')
   const [selCat,   setSelCat]   = useState(initCat)
   const [selLang,  setSelLang]  = useState(initLang)
@@ -24,8 +26,12 @@ function BrowseInner() {
 
   useEffect(() => {
     fetch('/api/helpers')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to load professionals')
+        return res.json()
+      })
       .then(setProviders)
+      .catch(() => setLoadError(true))
       .finally(() => setLoading(false))
   }, [])
 
@@ -71,10 +77,11 @@ function BrowseInner() {
         <div className="bg-white border-b border-border-col">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <h1 className="font-display font-bold text-2xl sm:text-3xl text-ink mb-1">
-              Find a Professional
+              Browse Vetted Pros
             </h1>
             <p className="text-muted text-sm">
-              {filtered.length} verified professional{filtered.length !== 1 ? 's' : ''} available
+              {loading ? 'Loading…' : `${filtered.length} verified professional${filtered.length !== 1 ? 's' : ''} available`} — or{' '}
+              <Link href="/post-job" className="text-gold font-semibold hover:text-gold-dark">let a coordinator match you</Link> instead.
             </p>
           </div>
 
@@ -145,6 +152,11 @@ function BrowseInner() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {loading ? (
             <div className="text-center py-20 text-muted text-sm">Loading professionals…</div>
+          ) : loadError ? (
+            <div className="text-center py-20">
+              <h3 className="font-display font-semibold text-ink text-lg mb-2">Couldn&apos;t load professionals right now</h3>
+              <p className="text-muted text-sm mb-4">Try refreshing, or <a href="/post-job" className="text-gold font-semibold hover:text-gold-dark">request help</a> and we&apos;ll match you directly.</p>
+            </div>
           ) : filtered.length === 0 ? (
             <div className="text-center py-20">
               <div className="text-4xl mb-4">🔍</div>

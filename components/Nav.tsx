@@ -6,9 +6,9 @@ import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 
 const links = [
-  { href: '/browse',       label: 'Find a Pro'    },
+  { href: '/browse',       label: 'Browse Pros'   },
   { href: '/how-it-works', label: 'How It Works'  },
-  { href: '/post-job',     label: 'Post a Job'    },
+  { href: '/post-job',     label: 'Request Help'  },
 ]
 
 export default function Nav() {
@@ -68,10 +68,10 @@ export default function Nav() {
             Start Earning
           </Link>
           <Link
-            href="/browse"
+            href="/post-job"
             className="bg-gold text-soro-black text-sm font-bold px-4 py-2 rounded-btn hover:bg-gold-dark transition-colors"
           >
-            Find a Pro
+            Get Matched
           </Link>
         </div>
 
@@ -107,11 +107,11 @@ export default function Nav() {
               Start Earning
             </Link>
             <Link
-              href="/browse"
+              href="/post-job"
               onClick={() => setOpen(false)}
               className="block text-sm font-bold text-center bg-gold text-soro-black py-2.5 rounded-btn hover:bg-gold-dark transition-colors"
             >
-              Find a Pro
+              Get Matched
             </Link>
           </div>
         </div>

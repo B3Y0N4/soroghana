@@ -80,3 +80,29 @@ export async function getProviderBySlug(slug: string): Promise<Provider | null> 
   })
   return row && row.status === 'active' ? helperToProvider(row) : null
 }
+
+export type HomeStats = {
+  featuredProviders: Provider[]
+  helperCount: number
+  avgRating: string | null
+}
+
+// The homepage hero/marketing content doesn't need the DB — a DB hiccup
+// shouldn't 500 the whole landing page, so this degrades to safe defaults
+// instead of throwing.
+export async function getHomeStats(): Promise<HomeStats> {
+  try {
+    const [featuredProviders, helperCount, ratingAgg] = await Promise.all([
+      getFeaturedProviders(),
+      db.helper.count({ where: { status: 'active' } }),
+      db.helper.aggregate({ where: { status: 'active' }, _avg: { rating: true } }),
+    ])
+    return {
+      featuredProviders,
+      helperCount,
+      avgRating: ratingAgg._avg.rating ? ratingAgg._avg.rating.toFixed(1) : null,
+    }
+  } catch {
+    return { featuredProviders: [], helperCount: 0, avgRating: null }
+  }
+}

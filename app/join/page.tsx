@@ -5,6 +5,7 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { categories, allLanguages } from '@/lib/categories'
 import { CheckCircle, ArrowRight, ArrowLeft } from 'lucide-react'
+import { tiers } from '@/components/TierLadder'
 
 type Step = 'basics' | 'skills' | 'rates' | 'done'
 
@@ -25,8 +26,9 @@ interface FormData {
 const perks = [
   'Set your own rates — no ceiling',
   'Work with local and international clients',
-  'Get verified to earn more trust',
-  'Receive jobs in WhatsApp, not a broken app',
+  'Get placed into a trust tier as you verify — more trust, more jobs',
+  'Get offered jobs, not left to cold-DM strangers',
+  'Paid instantly via Mobile Money the moment a job is marked complete',
   'Free to join — no monthly fees',
 ]
 
@@ -308,7 +310,7 @@ export default function JoinPage() {
                 <p className="text-sm text-white/60 mb-5 leading-relaxed">
                   The system has kept Ghanaian salaries fixed for too long. You deserve to earn from your natural talent and real skills.
                 </p>
-                <ul className="space-y-3">
+                <ul className="space-y-3 mb-6">
                   {perks.map(p => (
                     <li key={p} className="flex items-start gap-2.5 text-sm text-white/80">
                       <CheckCircle className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
@@ -316,6 +318,21 @@ export default function JoinPage() {
                     </li>
                   ))}
                 </ul>
+
+                <div className="pt-5 border-t border-white/10">
+                  <h4 className="font-display font-semibold text-sm mb-3">Where you land depends on verification</h4>
+                  <div className="space-y-3">
+                    {tiers.map(t => (
+                      <div key={t.name} className="flex items-start gap-2.5">
+                        <t.icon className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-sm text-white/80 font-medium">{t.name}</p>
+                          <p className="text-xs text-white/45">{t.price}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

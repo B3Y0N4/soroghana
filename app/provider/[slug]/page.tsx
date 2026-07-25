@@ -33,7 +33,7 @@ const availLabel = {
 
 export default async function ProviderProfile({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const provider = await getProviderBySlug(slug)
+  const provider = await getProviderBySlug(slug).catch(() => null)
   if (!provider) notFound()
 
   const avail = availLabel[provider.availability]
@@ -185,22 +185,26 @@ export default async function ProviderProfile({ params }: { params: Promise<{ sl
                   )}
                 </div>
 
+                <Link
+                  href={`/post-job?desc=${encodeURIComponent(`I'd like to request ${provider.name} (${provider.title}) for a job.`)}`}
+                  className="flex items-center justify-center w-full bg-gold hover:bg-gold-dark text-soro-black font-bold py-3 rounded-btn text-sm transition-colors mb-3"
+                >
+                  Request via Coordinator
+                </Link>
+
                 <a
                   href={`https://wa.me/?text=Hi ${encodeURIComponent(provider.name)}, I found your profile on Soro Ghana and would like to discuss a job.`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-btn text-sm transition-colors mb-3"
+                  className="flex items-center justify-center gap-2 w-full border border-border-col text-ink hover:border-gold hover:text-gold font-semibold py-3 rounded-btn text-sm transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  Contact via WhatsApp
+                  Message on WhatsApp
                 </a>
 
-                <Link
-                  href="/post-job"
-                  className="flex items-center justify-center w-full border border-border-col text-ink hover:border-gold hover:text-gold font-semibold py-3 rounded-btn text-sm transition-colors"
-                >
-                  Post a Job Instead
-                </Link>
+                <p className="text-xs text-muted mt-3 text-center">
+                  Requesting through the coordinator keeps your payment escrow-protected until the job is done.
+                </p>
 
                 <div className="mt-5 pt-5 border-t border-border-col space-y-3 text-xs text-muted">
                   <div className="flex justify-between">

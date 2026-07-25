@@ -1,45 +1,43 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import ProviderCard from '@/components/ProviderCard'
+import RequestHero from '@/components/RequestHero'
+import TierLadder from '@/components/TierLadder'
 import Link from 'next/link'
 import { categories, allLanguages } from '@/lib/categories'
-import { getFeaturedProviders } from '@/lib/helpers'
-import { db } from '@/lib/db'
+import { getHomeStats } from '@/lib/helpers'
+import { ShieldCheck, Lock, Smartphone, MessagesSquare } from 'lucide-react'
+
+const trustBar = [
+  { icon: ShieldCheck, label: 'Ghana Card KYC' },
+  { icon: MessagesSquare, label: 'Video-interviewed' },
+  { icon: Lock, label: 'Escrow-protected payment' },
+  { icon: Smartphone, label: 'Instant MoMo payout' },
+]
+
+const segments = [
+  { title: 'Trade Delegations', body: 'Interpreters, procurement officers, and factory-floor fixers for multi-day visits — briefed and ready before you land.' },
+  { title: 'Business Travelers & Investors', body: 'Due diligence on the ground: warehouse inspections, supplier verification, and a business assistant who knows who to call.' },
+  { title: 'Diaspora & Family', body: 'A trusted person to handle a property visit, a procurement trip, or a family matter you can’t be there for yourself.' },
+  { title: 'NGOs & Development Orgs', body: 'Local navigators and translators for field visits, vetted the same way as everyone else on the platform.' },
+]
 
 const steps = [
-  {
-    n:     '01',
-    title: 'Post or Browse',
-    body:  'Tell us what you need or search directly by category, skill, or language. No sign-up required to browse.',
-  },
-  {
-    n:     '02',
-    title: 'Match with a Vetted Pro',
-    body:  'Every professional on Soro Ghana is identity-verified with real reviews from real clients.',
-  },
-  {
-    n:     '03',
-    title: 'Work Together, Pay Fairly',
-    body:  'Agree terms directly. Pay what skilled work is worth — not what the market decided years ago.',
-  },
+  { n: '01', title: 'Tell the Coordinator', body: 'Describe what you need in your own words. No account required.' },
+  { n: '02', title: 'Get 3 Vetted Matches', body: 'Our coordinator matches you with up to 3 KYC-verified pros, usually within hours.' },
+  { n: '03', title: 'Pay Securely, Work Confidently', body: 'Charged by card, held until the job’s done. Your pro is paid instantly via Mobile Money on completion.' },
 ]
 
 export default async function Home() {
-  const [featuredProviders, helperCount, ratingAgg] = await Promise.all([
-    getFeaturedProviders(),
-    db.helper.count({ where: { status: 'active' } }),
-    db.helper.aggregate({ where: { status: 'active' }, _avg: { rating: true } }),
-  ])
-
-  const avgRating = ratingAgg._avg.rating ? ratingAgg._avg.rating.toFixed(1) : '—'
+  const { featuredProviders, helperCount, avgRating } = await getHomeStats()
 
   // Real counts only — a fabricated "500+ pros" undercuts the exact trust
   // this platform is selling once a visitor clicks through to /browse.
   const stats = [
-    { n: `${helperCount}`,              l: 'Verified Pros'  },
-    { n: `${categories.length}`,        l: 'Categories'     },
-    { n: `${allLanguages.length}+`,     l: 'Languages'      },
-    { n: helperCount ? `${avgRating}★` : '—', l: 'Average Rating' },
+    { n: `${helperCount}`,                          l: 'Verified Pros'  },
+    { n: `${categories.length}`,                    l: 'Categories'     },
+    { n: `${allLanguages.length}+`,                 l: 'Languages'      },
+    { n: avgRating ? `${avgRating}★` : '—',         l: 'Average Rating' },
   ]
 
   return (
@@ -47,7 +45,7 @@ export default async function Home() {
       <Nav />
 
       {/* HERO */}
-      <section className="relative min-h-[92vh] flex flex-col bg-soro-black pt-nav overflow-hidden">
+      <section className="relative min-h-[94vh] flex flex-col bg-soro-black pt-nav overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1 flex">
           <div className="flex-1 bg-ghana-red" />
           <div className="flex-1 bg-gold" />
@@ -66,48 +64,26 @@ export default async function Home() {
         <div className="relative z-10 flex flex-col items-center justify-center flex-1 px-4 py-24 text-center">
           <div className="inline-flex items-center gap-2 border border-gold/30 rounded-full px-4 py-1.5 mb-8">
             <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
-            <span className="text-gold text-xs font-semibold tracking-widest uppercase">Built for Ghanaians, by Ghanaians</span>
+            <span className="text-gold text-xs font-semibold tracking-widest uppercase">Your execution team on the ground in Ghana</span>
           </div>
 
           <h1 className="font-display font-bold text-white text-4xl sm:text-5xl lg:text-6xl leading-[1.06] tracking-tight max-w-4xl mb-4">
-            Your skills deserve{' '}
-            <span className="text-gold">more than</span>{' '}
-            <span className="relative inline-block">
-              GHS 1,500
-              <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-ghana-red/70 rounded" />
-            </span>
+            AI can tell you where the market is.{' '}
+            <span className="text-gold">It can&apos;t negotiate there for you.</span>
           </h1>
           <p className="text-white/55 text-lg sm:text-xl max-w-xl mb-10 leading-relaxed">
-            Soro Ghana connects skilled Ghanaians with real clients — local and international.
-            Translators, developers, fixers, designers, on-ground service pros. Get paid what your work is actually worth.
+            Soro Ghana matches you with vetted, KYC-verified Ghanaians for the work AI can&apos;t do in person —
+            negotiating, translating, inspecting, navigating. Coordinated for you, paid securely.
           </p>
 
-          <div className="w-full max-w-2xl mb-6">
-            <div className="flex items-center bg-white rounded-2xl overflow-hidden shadow-lg shadow-black/30 border border-white/10">
-              <input
-                type="text"
-                placeholder="What do you need? e.g. French translator, web developer…"
-                className="flex-1 px-5 py-4 text-ink placeholder:text-muted text-sm outline-none bg-transparent"
-                readOnly
-              />
-              <Link
-                href="/browse"
-                className="bg-gold hover:bg-gold-dark text-soro-black font-bold text-sm px-6 py-4 transition-colors whitespace-nowrap"
-              >
-                Find a Pro
-              </Link>
-            </div>
-          </div>
+          <RequestHero />
 
-          <div className="flex flex-wrap justify-center gap-2 max-w-2xl">
-            {categories.map(cat => (
-              <Link
-                key={cat.slug}
-                href={`/browse?cat=${cat.slug}`}
-                className="text-xs bg-white/8 hover:bg-white/14 text-white/70 hover:text-white border border-white/10 rounded-full px-3.5 py-1.5 transition-colors"
-              >
-                {cat.icon} {cat.label}
-              </Link>
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 max-w-2xl text-xs text-white/40">
+            {trustBar.map(t => (
+              <span key={t.label} className="flex items-center gap-1.5">
+                <t.icon className="w-3.5 h-3.5 text-gold" />
+                {t.label}
+              </span>
             ))}
           </div>
         </div>
@@ -124,7 +100,7 @@ export default async function Home() {
         <div className="max-w-4xl mx-auto px-4">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
             {stats.map(s => (
-              <div key={s.n}>
+              <div key={s.l}>
                 <div className="font-display font-bold text-3xl text-ink mb-1">{s.n}</div>
                 <div className="text-sm text-muted">{s.l}</div>
               </div>
@@ -133,8 +109,38 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* CATEGORIES */}
+      {/* WHO WE SERVE */}
+      <section className="bg-white py-20 px-4 border-b border-border-col">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-2">Built for Real Trips, Not Sightseeing</p>
+            <h2 className="font-display font-bold text-3xl sm:text-4xl text-ink">Who we serve.</h2>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-5">
+            {segments.map(s => (
+              <div key={s.title} className="border border-border-col rounded-card p-6">
+                <h3 className="font-display font-semibold text-ink text-base mb-2">{s.title}</h3>
+                <p className="text-sm text-muted leading-relaxed">{s.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TIER LADDER */}
       <section className="bg-page-bg py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-2">Matched by Trust Tier</p>
+            <h2 className="font-display font-bold text-3xl sm:text-4xl text-ink">Every pro is vetted to a tier.</h2>
+            <p className="text-muted mt-2 text-sm max-w-lg mx-auto">The tier tells you how much trust has already been verified before you ever speak to them.</p>
+          </div>
+          <TierLadder />
+        </div>
+      </section>
+
+      {/* CATEGORIES */}
+      <section className="bg-white py-20 px-4 border-y border-border-col">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-2">Browse by Category</p>
@@ -164,7 +170,7 @@ export default async function Home() {
       </section>
 
       {/* FEATURED PROS */}
-      <section className="bg-white py-20 px-4 border-y border-border-col">
+      <section className="bg-page-bg py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-end justify-between mb-10">
             <div>
@@ -177,24 +183,31 @@ export default async function Home() {
             </Link>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {featuredProviders.map(provider => (
-              <ProviderCard key={provider.slug} provider={provider} />
-            ))}
-          </div>
-
-          <div className="text-center mt-8 sm:hidden">
-            <Link href="/browse" className="text-sm font-semibold text-gold">View all professionals →</Link>
-          </div>
+          {featuredProviders.length > 0 ? (
+            <>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {featuredProviders.map(provider => (
+                  <ProviderCard key={provider.slug} provider={provider} />
+                ))}
+              </div>
+              <div className="text-center mt-8 sm:hidden">
+                <Link href="/browse" className="text-sm font-semibold text-gold">View all professionals →</Link>
+              </div>
+            </>
+          ) : (
+            <p className="text-muted text-sm">
+              <Link href="/browse" className="text-gold font-semibold hover:text-gold-dark">Browse all professionals →</Link>
+            </p>
+          )}
         </div>
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="bg-page-bg py-20 px-4">
+      <section className="bg-white py-20 px-4 border-y border-border-col">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-2">Simple Process</p>
-            <h2 className="font-display font-bold text-3xl sm:text-4xl text-ink">Three steps, zero friction.</h2>
+            <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-2">How It Works</p>
+            <h2 className="font-display font-bold text-3xl sm:text-4xl text-ink">Coordinated, not just listed.</h2>
           </div>
 
           <div className="grid sm:grid-cols-3 gap-8">
@@ -208,6 +221,12 @@ export default async function Home() {
                 <p className="text-sm text-muted leading-relaxed">{s.body}</p>
               </div>
             ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link href="/how-it-works" className="text-sm font-semibold text-gold hover:text-gold-dark transition-colors">
+              Read the full breakdown →
+            </Link>
           </div>
         </div>
       </section>
@@ -258,7 +277,7 @@ export default async function Home() {
           </h2>
           <p className="text-white/50 text-base max-w-lg mx-auto mb-8 leading-relaxed">
             Stop working for a fixed salary that undervalues what you bring.
-            Create your profile today and start earning from international clients, businesses, and visitors — on your terms.
+            Get verified, get placed in a trust tier, and start earning from international clients — on your terms.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link

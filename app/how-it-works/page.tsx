@@ -1,28 +1,29 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import TierLadder from '@/components/TierLadder'
 import Link from 'next/link'
 import { CheckCircle, ArrowRight } from 'lucide-react'
 
 const forClients = [
   {
     step: '01',
-    title: 'Browse or Post',
-    body:  'Search by skill, language, or category. Or post a job and let pros come to you. No account required to browse.',
+    title: 'Tell the Coordinator',
+    body:  'Describe what you need in your own words — a translator, a warehouse inspection, a driver for three days. No account required.',
   },
   {
     step: '02',
-    title: 'Contact Directly',
-    body:  'Reach out via WhatsApp — no middleman, no back-and-forth in a clunky inbox. Real conversations in real time.',
+    title: 'Get Matched, Not Just Listed',
+    body:  'Our coordinator matches your request to up to 3 KYC-verified pros at the right trust tier, usually within hours.',
   },
   {
     step: '03',
-    title: 'Agree and Work',
-    body:  'Agree on scope and price directly with your pro. No platform lock-in. Your deal, your terms.',
+    title: 'Confirm and Pay Securely',
+    body:  'Pick who you want, pay by card. Funds are held until the job is confirmed complete — not released upfront.',
   },
   {
     step: '04',
-    title: 'Leave a Review',
-    body:  'After the job, leave a verified review. This helps the best pros rise and gives future clients confidence.',
+    title: 'Work Happens, Then You Review',
+    body:  'Your pro is paid instantly via Mobile Money the moment the job is marked complete. Leave a review after.',
   },
 ]
 
@@ -34,27 +35,27 @@ const forPros = [
   },
   {
     step: '02',
-    title: 'Get Verified',
-    body:  'Submit your Ghana Card for identity verification. Verified pros get a badge and earn more client trust.',
+    title: 'Get Verified Into a Tier',
+    body:  'Submit your Ghana Card, complete a video interview. Verification places you at Standard Helper, Business Assistant, or Executive Translator.',
   },
   {
     step: '03',
-    title: 'Receive Enquiries',
-    body:  'Clients contact you directly via WhatsApp. You decide which jobs to take and what to charge.',
+    title: 'Get Offered Real Jobs',
+    body:  'Our coordinator offers you jobs that match your tier and skills. You decide which ones to take.',
   },
   {
     step: '04',
-    title: 'Build Your Reputation',
-    body:  'Each completed job + review builds your profile score. More reviews = more visibility = more income.',
+    title: 'Get Paid Instantly',
+    body:  'The moment a job is marked complete, payment lands in your Mobile Money account — no chasing invoices.',
   },
 ]
 
 const trustPoints = [
-  'Ghana Card identity verification for all pros',
-  'Real client reviews — no anonymous ratings',
-  'Manual profile review before going live',
-  'WhatsApp-based contact — no spam or bots',
-  'Pro response time tracked and displayed',
+  'Ghana Card identity verification for every pro, checked against the national ID system',
+  'Police check and a video interview before anyone reaches Business Assistant tier or above',
+  'Payment held in escrow — visitors are charged by card, but funds only release on completion',
+  'Every engagement is trackable through the job, not a private off-platform deal',
+  'Real client reviews tied to completed jobs — no anonymous ratings',
 ]
 
 export default function HowItWorksPage() {
@@ -72,10 +73,11 @@ export default function HowItWorksPage() {
           </div>
           <div className="max-w-3xl mx-auto text-center relative z-10">
             <h1 className="font-display font-bold text-white text-3xl sm:text-4xl mb-3">
-              How Soro Ghana Works
+              Coordinated, Not Just Listed
             </h1>
             <p className="text-white/60 text-base leading-relaxed max-w-xl mx-auto">
-              Simple for clients. Powerful for professionals. No noise, no hidden fees — just real work at real rates.
+              Soro Ghana isn&apos;t a directory you scroll and DM. A coordinator matches your request to vetted
+              pros, payment is held until the job is done, and helpers get paid instantly on completion.
             </p>
           </div>
         </div>
@@ -86,7 +88,7 @@ export default function HowItWorksPage() {
           <section>
             <div className="mb-10">
               <span className="text-xs font-semibold text-gold uppercase tracking-widest">For Clients & Businesses</span>
-              <h2 className="font-display font-bold text-2xl sm:text-3xl text-ink mt-1">Find the right pro, fast.</h2>
+              <h2 className="font-display font-bold text-2xl sm:text-3xl text-ink mt-1">From request to completed job.</h2>
             </div>
             <div className="grid sm:grid-cols-2 gap-6">
               {forClients.map(s => (
@@ -98,10 +100,19 @@ export default function HowItWorksPage() {
               ))}
             </div>
             <div className="mt-6">
-              <Link href="/browse" className="inline-flex items-center gap-2 bg-gold text-soro-black font-bold px-5 py-2.5 rounded-btn text-sm hover:bg-gold-dark transition-colors">
-                Browse Professionals <ArrowRight className="w-4 h-4" />
+              <Link href="/post-job" className="inline-flex items-center gap-2 bg-gold text-soro-black font-bold px-5 py-2.5 rounded-btn text-sm hover:bg-gold-dark transition-colors">
+                Request Help <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
+          </section>
+
+          {/* Tiers */}
+          <section>
+            <div className="mb-10">
+              <span className="text-xs font-semibold text-gold uppercase tracking-widest">Trust Tiers</span>
+              <h2 className="font-display font-bold text-2xl sm:text-3xl text-ink mt-1">The tier tells you what&apos;s already been verified.</h2>
+            </div>
+            <TierLadder />
           </section>
 
           {/* For Pros */}
@@ -150,15 +161,15 @@ export default function HowItWorksPage() {
                 },
                 {
                   q: 'How does verification work?',
-                  a: 'After submitting your profile, you submit a photo of your Ghana Card. Our team verifies it manually within 24 hours. Verified pros get a badge on their profile.',
+                  a: 'You submit your Ghana Card for ID verification. Depending on the tier, you may also complete a police check and a video interview. Our team reviews every profile manually before it goes live.',
                 },
                 {
-                  q: 'How do clients pay me?',
-                  a: 'Payment is agreed directly between you and the client. We support Mobile Money (MTN, Telecel, AirtelTigo), bank transfer, and cash for in-person jobs. We do not handle payments — you agree the terms directly.',
+                  q: 'How does payment actually work?',
+                  a: 'Visitors pay by card in their own currency. We hold that payment until the job is marked complete, then pay the pro instantly via Mobile Money in GHS. Neither side has to chase the other for money.',
                 },
                 {
                   q: 'Can international clients use Soro Ghana?',
-                  a: 'Yes. Many of our clients are French, Spanish, and English-speaking businesses and visitors who need professionals in Ghana. Our platform is designed for cross-border connections.',
+                  a: 'Yes — that’s who we’re built for first. Trade delegations, business travelers, investors, and diaspora who need trusted execution on the ground, not just information.',
                 },
                 {
                   q: 'What if I speak a language not listed?',
