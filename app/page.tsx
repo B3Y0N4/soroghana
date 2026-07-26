@@ -266,12 +266,17 @@ export default async function Home() {
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <div className="text-4xl mb-5">🇬🇭</div>
           <h2 className="font-display font-bold text-white text-3xl sm:text-4xl leading-tight mb-4">
-            Are you a skilled Ghanaian?<br />
-            <span className="text-gold">Get paid what you&apos;re worth.</span>
+            Your skills are worth more than{' '}
+            <span className="relative inline-block">
+              GHS 1,500
+              <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-ghana-red/70 rounded" />
+            </span>{' '}
+            a month.
           </h2>
           <p className="text-white/50 text-base max-w-lg mx-auto mb-8 leading-relaxed">
-            Student earning between classes, freelancer between contracts, or full-time professional —
-            get verified, get placed in a trust tier, and start earning from international clients on your terms.
+            A single 3-day booking as a Business Assistant pays <span className="text-gold font-semibold">GHS 3,600+</span> —
+            more than a typical month. Student, freelancer, or full-time professional: get verified,
+            get placed in a trust tier, and earn what international clients actually pay for the work.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link

@@ -304,11 +304,19 @@ export default function JoinPage() {
             <div className="lg:pt-[72px]">
               <div className="bg-soro-black rounded-card p-6 text-white sticky top-24">
                 <div className="text-3xl mb-4">🇬🇭</div>
-                <h3 className="font-display font-bold text-lg mb-2">
+                <h3 className="font-display font-bold text-lg mb-4">
                   Why Soro Ghana?
                 </h3>
+
+                <div className="mb-5 p-4 bg-white/5 rounded-card border border-white/10">
+                  <p className="text-[11px] text-white/40 uppercase tracking-wide mb-1">Typical Ghana monthly salary</p>
+                  <p className="text-lg font-display font-bold text-white/45 line-through decoration-white/30 mb-3">GHS 1,500 – 3,000</p>
+                  <p className="text-[11px] text-gold uppercase tracking-wide mb-1">One 3-day Business Assistant booking</p>
+                  <p className="text-2xl font-display font-black text-gold">GHS 3,600+</p>
+                </div>
+
                 <p className="text-sm text-white/60 mb-5 leading-relaxed">
-                  The system has kept Ghanaian salaries fixed for too long. You deserve to earn from your natural talent and real skills.
+                  The local market has kept skilled Ghanaians earning a fraction of what international clients will pay for the exact same work. You deserve the real rate.
                 </p>
                 <ul className="space-y-3 mb-6">
                   {perks.map(p => (
