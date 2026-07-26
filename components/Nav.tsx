@@ -12,10 +12,9 @@ const links = [
 ]
 
 export default function Nav() {
-  const pathname  = usePathname()
-  const [open,    setOpen]    = useState(false)
+  const pathname   = usePathname()
+  const [open,     setOpen]     = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const isHome    = pathname === '/'
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40)
@@ -24,22 +23,12 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', fn)
   }, [])
 
-  const navBg = isHome && !scrolled
-    ? 'bg-transparent border-transparent'
-    : 'bg-white border-b border-border-col shadow-sm'
-
-  const textColor = isHome && !scrolled ? 'text-white' : 'text-ink'
-  const logoColor = isHome && !scrolled ? 'text-white' : 'text-ink'
-  const linkHover = isHome && !scrolled
-    ? 'hover:text-gold'
-    : 'hover:text-gold'
-
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border-col transition-shadow duration-200 ${scrolled ? 'shadow-sm' : ''}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between">
 
         {/* Logo */}
-        <Link href="/" className={`font-display font-bold text-xl ${logoColor} flex items-center gap-2`}>
+        <Link href="/" className="font-display font-bold text-xl text-ink flex items-center gap-2">
           <span className="w-8 h-8 rounded-lg bg-gold flex items-center justify-center flex-shrink-0">
             <span className="text-soro-black text-sm font-black">S</span>
           </span>
@@ -52,7 +41,7 @@ export default function Nav() {
             <Link
               key={l.href}
               href={l.href}
-              className={`text-sm font-medium transition-colors ${textColor} ${linkHover} ${pathname === l.href ? 'text-gold' : ''}`}
+              className={`text-sm font-medium text-ink hover:text-gold transition-colors ${pathname === l.href ? 'text-gold' : ''}`}
             >
               {l.label}
             </Link>
@@ -63,7 +52,7 @@ export default function Nav() {
         <div className="hidden md:flex items-center gap-3">
           <Link
             href="/join"
-            className={`text-sm font-semibold transition-colors ${textColor} ${linkHover}`}
+            className="text-sm font-semibold text-ink hover:text-gold transition-colors"
           >
             Start Earning
           </Link>
@@ -78,7 +67,7 @@ export default function Nav() {
         {/* Mobile menu button */}
         <button
           onClick={() => setOpen(v => !v)}
-          className={`md:hidden p-2 ${textColor}`}
+          className="md:hidden p-2 text-ink"
           aria-label="Toggle menu"
         >
           {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

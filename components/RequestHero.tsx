@@ -22,7 +22,7 @@ export default function RequestHero() {
 
   return (
     <div className="w-full max-w-2xl mb-6">
-      <div className="bg-white rounded-2xl shadow-lg shadow-black/30 border border-white/10 p-2">
+      <div className="bg-white rounded-2xl shadow-card border border-border-col p-2">
         <textarea
           value={text}
           onChange={e => setText(e.target.value)}
@@ -45,7 +45,7 @@ export default function RequestHero() {
           <button
             key={ex}
             onClick={() => setText(ex)}
-            className="text-xs bg-white/8 hover:bg-white/14 text-white/60 hover:text-white border border-white/10 rounded-full px-3 py-1.5 transition-colors"
+            className="text-xs bg-white hover:bg-gold-light text-muted hover:text-gold-dark border border-border-col hover:border-gold/40 rounded-full px-3 py-1.5 transition-colors"
           >
             {ex}
           </button>

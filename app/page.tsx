@@ -47,49 +47,32 @@ export default async function Home() {
       <Nav />
 
       {/* HERO */}
-      <section className="relative min-h-[94vh] flex flex-col bg-soro-black pt-nav overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gold/40" />
-
-        <div className="absolute inset-0 opacity-[0.035]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, #E8A020 1px, transparent 0)`,
-            backgroundSize: '32px 32px'
-          }}
-        />
-
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-gold opacity-[0.07] blur-[100px] pointer-events-none" />
-
-        <div className="relative z-10 flex flex-col items-center justify-center flex-1 px-4 py-24 text-center">
-          <div className="inline-flex items-center gap-2 border border-gold/30 rounded-full px-4 py-1.5 mb-8">
-            <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
-            <span className="text-gold text-xs font-semibold tracking-widest uppercase">Your execution team on the ground in Ghana</span>
+      <section className="flex flex-col bg-page-bg pt-nav">
+        <div className="flex flex-col items-center justify-center flex-1 px-4 py-24 text-center">
+          <div className="inline-flex items-center gap-2 border border-gold/40 rounded-full px-4 py-1.5 mb-8">
+            <span className="w-2 h-2 rounded-full bg-gold" />
+            <span className="text-gold-dark text-xs font-semibold tracking-widest uppercase">Your execution team on the ground in Ghana</span>
           </div>
 
-          <h1 className="font-display font-bold text-white text-4xl sm:text-5xl lg:text-6xl leading-[1.06] tracking-tight max-w-4xl mb-4">
+          <h1 className="font-display font-bold text-ink text-4xl sm:text-5xl lg:text-6xl leading-[1.06] tracking-tight max-w-4xl mb-4 text-balance">
             AI can tell you where the market is.{' '}
-            <span className="text-gold">It can&apos;t negotiate there for you.</span>
+            <span className="text-gold-dark">It can&apos;t negotiate there for you.</span>
           </h1>
-          <p className="text-white/55 text-lg sm:text-xl max-w-xl mb-10 leading-relaxed">
+          <p className="text-muted text-lg sm:text-xl max-w-xl mb-10 leading-relaxed">
             Soro Ghana matches you with vetted, KYC-verified Ghanaians for the work AI can&apos;t do in person —
             negotiating, translating, inspecting, navigating. Coordinated for you, paid securely.
           </p>
 
           <RequestHero />
 
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 max-w-2xl text-xs text-white/40">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 max-w-2xl text-xs text-muted">
             {trustBar.map(t => (
               <span key={t.label} className="flex items-center gap-1.5">
-                <t.icon className="w-3.5 h-3.5 text-gold" />
+                <t.icon className="w-3.5 h-3.5 text-gold-dark" />
                 {t.label}
               </span>
             ))}
           </div>
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 56" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full" preserveAspectRatio="none">
-            <path d="M0 56L1440 56L1440 28C1200 8 960 0 720 0C480 0 240 8 0 28L0 56Z" fill="#FAFAF8"/>
-          </svg>
         </div>
       </section>
 
@@ -230,13 +213,13 @@ export default async function Home() {
       </section>
 
       {/* LANGUAGE CTA */}
-      <section className="bg-charcoal py-14 px-4">
+      <section className="bg-gold-light py-14 px-4 border-y border-gold/15">
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
           <div>
-            <h2 className="font-display font-bold text-white text-2xl sm:text-3xl mb-2">
+            <h2 className="font-display font-bold text-ink text-2xl sm:text-3xl mb-2">
               Visiting Ghana? We speak your language.
             </h2>
-            <p className="text-gray-400 text-sm max-w-md">
+            <p className="text-muted text-sm max-w-md">
               Find French, Spanish, Arabic, and Chinese-speaking professionals who understand your context — not just your words.
             </p>
           </div>
@@ -245,7 +228,7 @@ export default async function Home() {
               <Link
                 key={lang}
                 href={`/browse?lang=${lang}`}
-                className="text-sm font-semibold border border-white/20 text-white px-4 py-2 rounded-btn hover:border-gold hover:text-gold transition-colors"
+                className="text-sm font-semibold bg-white border border-gold/25 text-ink px-4 py-2 rounded-btn hover:border-gold hover:text-gold-dark transition-colors"
               >
                 {lang} speakers
               </Link>
@@ -254,16 +237,9 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* JOIN CTA */}
-      <section className="bg-soro-black py-20 px-4 relative overflow-hidden">
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gold/40" />
-        <div className="absolute inset-0 opacity-[0.035]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, #E8A020 1px, transparent 0)`,
-            backgroundSize: '32px 32px'
-          }}
-        />
-        <div className="relative z-10 max-w-3xl mx-auto text-center">
+      {/* JOIN CTA — the one deliberately bold, dark moment on the page */}
+      <section className="bg-soro-black py-20 px-4">
+        <div className="max-w-3xl mx-auto text-center">
           <div className="text-4xl mb-5">🇬🇭</div>
           <h2 className="font-display font-bold text-white text-3xl sm:text-4xl leading-tight mb-4">
             Your skills are worth more than{' '}

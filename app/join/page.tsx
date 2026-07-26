@@ -302,40 +302,40 @@ export default function JoinPage() {
 
             {/* Right: Perks */}
             <div className="lg:pt-[72px]">
-              <div className="bg-soro-black rounded-card p-6 text-white sticky top-24">
+              <div className="bg-white rounded-card border border-border-col p-6 sticky top-24">
                 <div className="text-3xl mb-4">🇬🇭</div>
-                <h3 className="font-display font-bold text-lg mb-4">
+                <h3 className="font-display font-bold text-lg text-ink mb-4">
                   Why Soro Ghana?
                 </h3>
 
-                <div className="mb-5 p-4 bg-white/5 rounded-card border border-white/10">
+                <div className="mb-5 p-4 bg-soro-black rounded-card">
                   <p className="text-[11px] text-white/40 uppercase tracking-wide mb-1">Typical Ghana monthly salary</p>
                   <p className="text-lg font-display font-bold text-white/45 line-through decoration-white/30 mb-3">GHS 1,500 – 3,000</p>
                   <p className="text-[11px] text-gold uppercase tracking-wide mb-1">One 3-day Business Assistant booking</p>
                   <p className="text-2xl font-display font-black text-gold">GHS 3,600+</p>
                 </div>
 
-                <p className="text-sm text-white/60 mb-5 leading-relaxed">
+                <p className="text-sm text-muted mb-5 leading-relaxed">
                   The local market has kept skilled Ghanaians earning a fraction of what international clients will pay for the exact same work. You deserve the real rate.
                 </p>
                 <ul className="space-y-3 mb-6">
                   {perks.map(p => (
-                    <li key={p} className="flex items-start gap-2.5 text-sm text-white/80">
-                      <CheckCircle className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
+                    <li key={p} className="flex items-start gap-2.5 text-sm text-ink/80">
+                      <CheckCircle className="w-4 h-4 text-gold-dark flex-shrink-0 mt-0.5" />
                       {p}
                     </li>
                   ))}
                 </ul>
 
-                <div className="pt-5 border-t border-white/10">
-                  <h4 className="font-display font-semibold text-sm mb-3">Where you land depends on verification</h4>
+                <div className="pt-5 border-t border-border-col">
+                  <h4 className="font-display font-semibold text-sm text-ink mb-3">Where you land depends on verification</h4>
                   <div className="space-y-3">
                     {tiers.map(t => (
                       <div key={t.name} className="flex items-start gap-2.5">
-                        <t.icon className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
+                        <t.icon className="w-4 h-4 text-gold-dark flex-shrink-0 mt-0.5" />
                         <div>
-                          <p className="text-sm text-white/80 font-medium">{t.name}</p>
-                          <p className="text-xs text-white/45">{t.price}</p>
+                          <p className="text-sm text-ink font-medium">{t.name}</p>
+                          <p className="text-xs text-muted">{t.price}</p>
                         </div>
                       </div>
                     ))}

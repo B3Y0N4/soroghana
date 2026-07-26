@@ -65,13 +65,12 @@ export default function HowItWorksPage() {
       <div className="min-h-screen bg-page-bg pt-nav">
 
         {/* Hero */}
-        <div className="bg-soro-black py-16 px-4 relative overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-px bg-gold/40" />
-          <div className="max-w-3xl mx-auto text-center relative z-10">
-            <h1 className="font-display font-bold text-white text-3xl sm:text-4xl mb-3">
+        <div className="bg-white border-b border-border-col py-16 px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="font-display font-bold text-ink text-3xl sm:text-4xl mb-3">
               Coordinated, Not Just Listed
             </h1>
-            <p className="text-white/60 text-base leading-relaxed max-w-xl mx-auto">
+            <p className="text-muted text-base leading-relaxed max-w-xl mx-auto">
               Soro Ghana isn&apos;t a directory you scroll and DM. A coordinator matches your request to vetted
               pros, payment is held until the job is done, and helpers get paid instantly on completion.
             </p>
