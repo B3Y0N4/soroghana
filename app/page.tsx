@@ -270,8 +270,8 @@ export default async function Home() {
             <span className="text-gold">Get paid what you&apos;re worth.</span>
           </h2>
           <p className="text-white/50 text-base max-w-lg mx-auto mb-8 leading-relaxed">
-            Stop working for a fixed salary that undervalues what you bring.
-            Get verified, get placed in a trust tier, and start earning from international clients — on your terms.
+            Student earning between classes, freelancer between contracts, or full-time professional —
+            get verified, get placed in a trust tier, and start earning from international clients on your terms.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link

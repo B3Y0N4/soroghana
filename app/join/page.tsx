@@ -124,7 +124,7 @@ export default function JoinPage() {
                 <div className="space-y-5">
                   <div>
                     <h1 className="font-display font-bold text-2xl text-ink mb-1">Create your profile</h1>
-                    <p className="text-muted text-sm">Start earning from clients across Ghana and beyond.</p>
+                    <p className="text-muted text-sm">Student, freelancer, full-time professional — if you know Ghana and speak the language a visitor needs, start earning from clients across Ghana and beyond.</p>
                   </div>
 
                   <Field label="Full Name" required>
