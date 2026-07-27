@@ -45,7 +45,7 @@ function LoginInner() {
           placeholder="Admin password"
           className="w-full text-sm border border-border-col rounded-btn px-3 py-2.5 outline-none focus:border-gold bg-white text-ink"
         />
-        {error && <p className="text-sm text-ghana-red">{error}</p>}
+        {error && <p className="text-sm text-error">{error}</p>}
         <button
           type="submit"
           disabled={!password || submitting}

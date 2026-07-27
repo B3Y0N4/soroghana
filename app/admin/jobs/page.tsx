@@ -71,7 +71,7 @@ export default async function AdminJobsPage() {
                     </form>
                   ))}
                   <form action={updateEngagementStatus.bind(null, job.engagement.id, 'cancelled')}>
-                    <button type="submit" className="text-xs font-semibold px-3 py-1.5 rounded-pill border border-border-col text-ghana-red hover:border-ghana-red">
+                    <button type="submit" className="text-xs font-semibold px-3 py-1.5 rounded-pill border border-border-col text-error hover:border-error">
                       cancelled
                     </button>
                   </form>
@@ -112,7 +112,7 @@ export default async function AdminJobsPage() {
                   <button type="submit" className="bg-gold text-soro-black font-bold text-sm px-4 py-2 rounded-btn hover:bg-gold-dark transition-colors">
                     Save matches
                   </button>
-                  <button formAction={updateJobStatus.bind(null, job.id, 'cancelled')} className="border border-border-col text-ink text-sm px-4 py-2 rounded-btn hover:border-ghana-red hover:text-ghana-red transition-colors">
+                  <button formAction={updateJobStatus.bind(null, job.id, 'cancelled')} className="border border-border-col text-ink text-sm px-4 py-2 rounded-btn hover:border-error hover:text-error transition-colors">
                     Cancel job
                   </button>
                 </div>

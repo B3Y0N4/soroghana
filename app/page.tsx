@@ -247,7 +247,7 @@ export default async function Home() {
             Your skills are worth more than{' '}
             <span className="relative inline-block">
               GHS 1,500
-              <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-ghana-red/70 rounded" />
+              <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-error/70 rounded" />
             </span>{' '}
             a month.
           </h2>

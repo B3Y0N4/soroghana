@@ -179,7 +179,7 @@ function PostJobInner() {
             </div>
           </div>
 
-          {error && <p className="text-sm text-ghana-red">{error}</p>}
+          {error && <p className="text-sm text-error">{error}</p>}
 
           <button
             onClick={submit}
@@ -241,7 +241,7 @@ function Field({ label, required, children }: { label: string; required?: boolea
   return (
     <div>
       <label className="block text-xs font-semibold text-ink mb-1.5 uppercase tracking-wide">
-        {label}{required && <span className="text-ghana-red ml-0.5">*</span>}
+        {label}{required && <span className="text-error ml-0.5">*</span>}
       </label>
       {children}
     </div>

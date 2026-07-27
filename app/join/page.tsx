@@ -282,7 +282,7 @@ export default function JoinPage() {
                     <strong className="text-soro-black">Zero commission on your first 3 jobs.</strong> After that, Soro Ghana takes a small platform fee to keep the marketplace running. We only earn when you earn.
                   </div>
 
-                  {error && <p className="text-sm text-ghana-red">{error}</p>}
+                  {error && <p className="text-sm text-error">{error}</p>}
 
                   <div className="flex gap-3">
                     <button onClick={() => setStep('skills')} className="flex items-center gap-2 border border-border-col text-ink font-semibold px-4 py-3 rounded-btn text-sm hover:border-gold hover:text-gold transition-colors">
@@ -354,7 +354,7 @@ function Field({ label, required, children }: { label: string; required?: boolea
   return (
     <div>
       <label className="block text-xs font-semibold text-ink mb-1.5 uppercase tracking-wide">
-        {label}{required && <span className="text-ghana-red ml-0.5">*</span>}
+        {label}{required && <span className="text-error ml-0.5">*</span>}
       </label>
       {children}
     </div>

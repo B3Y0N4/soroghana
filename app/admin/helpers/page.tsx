@@ -90,7 +90,7 @@ export default async function AdminHelpersPage() {
               )}
               {h.status !== 'suspended' && (
                 <form action={setHelperStatus.bind(null, h.id, 'suspended')}>
-                  <button type="submit" className="text-sm font-semibold text-ghana-red border border-red-200 rounded-btn px-3 py-1.5 hover:bg-red-50">
+                  <button type="submit" className="text-sm font-semibold text-error border border-red-200 rounded-btn px-3 py-1.5 hover:bg-red-50">
                     Suspend
                   </button>
                 </form>
