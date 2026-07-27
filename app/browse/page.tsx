@@ -159,7 +159,7 @@ function BrowseInner() {
             </div>
           ) : filtered.length === 0 ? (
             <div className="text-center py-20">
-              <div className="text-4xl mb-4">🔍</div>
+              <Search className="w-10 h-10 text-border-col mx-auto mb-4" />
               <h3 className="font-display font-semibold text-ink text-lg mb-2">No matches found</h3>
               <p className="text-muted text-sm mb-4">Try adjusting your search or filters</p>
               <button onClick={clearFilters} className="text-sm text-gold font-semibold hover:text-gold-dark">

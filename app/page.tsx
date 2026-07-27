@@ -55,11 +55,11 @@ export default async function Home() {
           </div>
 
           <h1 className="font-display font-bold text-ink text-4xl sm:text-5xl lg:text-6xl leading-[1.06] tracking-tight max-w-4xl mb-4 text-balance">
-            AI can tell you where the market is.{' '}
-            <span className="text-gold-dark">It can&apos;t negotiate there for you.</span>
+            Vetted local experts,{' '}
+            <span className="text-gold-dark">matched to exactly what you need.</span>
           </h1>
           <p className="text-muted text-lg sm:text-xl max-w-xl mb-10 leading-relaxed">
-            Soro Ghana matches you with vetted, KYC-verified Ghanaians for the work AI can&apos;t do in person —
+            Soro Ghana matches you with KYC-verified Ghanaians for the work that has to happen in person —
             negotiating, translating, inspecting, navigating. Coordinated for you, paid securely.
           </p>
 
@@ -135,7 +135,9 @@ export default async function Home() {
                 href={`/browse?cat=${cat.slug}`}
                 className="group bg-white border border-border-col rounded-card p-5 hover:border-gold hover:shadow-card transition-all duration-200"
               >
-                <div className="text-3xl mb-3">{cat.icon}</div>
+                <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center mb-3">
+                  <cat.icon className="w-5 h-5 text-soro-black" />
+                </div>
                 <div className="font-display font-semibold text-sm text-ink group-hover:text-gold transition-colors mb-1">{cat.label}</div>
                 <div className="text-xs text-muted leading-relaxed">{cat.description}</div>
               </Link>
@@ -240,7 +242,7 @@ export default async function Home() {
       {/* JOIN CTA — the one deliberately bold, dark moment on the page */}
       <section className="bg-gradient-to-br from-soro-black to-charcoal py-20 px-4">
         <div className="max-w-3xl mx-auto text-center">
-          <div className="text-4xl mb-5">🇬🇭</div>
+          <p className="text-gold text-xs font-semibold tracking-widest uppercase mb-4">For Skilled Ghanaians</p>
           <h2 className="font-display font-bold text-white text-3xl sm:text-4xl leading-tight mb-4">
             Your skills are worth more than{' '}
             <span className="relative inline-block">

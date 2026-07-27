@@ -185,13 +185,13 @@ export default function JoinPage() {
                           key={cat.slug}
                           type="button"
                           onClick={() => toggleItem('categories', cat.slug)}
-                          className={`text-xs px-3 py-1.5 rounded-pill border font-medium transition-colors ${
+                          className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-pill border font-medium transition-colors ${
                             form.categories.includes(cat.slug)
                               ? 'bg-gold border-gold text-soro-black'
                               : 'bg-white border-border-col text-muted hover:border-gold'
                           }`}
                         >
-                          {cat.icon} {cat.label}
+                          <cat.icon className="w-3.5 h-3.5" /> {cat.label}
                         </button>
                       ))}
                     </div>
@@ -303,7 +303,6 @@ export default function JoinPage() {
             {/* Right: Perks */}
             <div className="lg:pt-[72px]">
               <div className="bg-white rounded-card border border-border-col p-6 sticky top-24">
-                <div className="text-3xl mb-4">🇬🇭</div>
                 <h3 className="font-display font-bold text-lg text-ink mb-4">
                   Why Soro Ghana?
                 </h3>

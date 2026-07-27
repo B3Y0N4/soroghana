@@ -1,12 +1,12 @@
 import type { Provider } from "@/lib/providers"
-import { Star, ShieldCheck } from "lucide-react"
+import { Star, ShieldCheck, MapPin } from "lucide-react"
 
 export default function ProviderCard({ provider }: { provider: Provider }) {
   return (
     <div className="bg-card-bg border border-border-col rounded-card p-5 hover:shadow-lg hover:border-gold/40 transition-all duration-200 cursor-pointer group">
       <div className="flex items-start justify-between mb-3">
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center text-2xl">
-          {provider.avatar}
+        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center font-display font-bold text-soro-black text-sm">
+          {provider.initials}
         </div>
         <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${provider.tagColor}`}>{provider.tag}</span>
       </div>
@@ -38,7 +38,7 @@ export default function ProviderCard({ provider }: { provider: Provider }) {
 
       <div className="flex items-center justify-between pt-3 border-t border-border-col">
         <span className="text-xs font-bold text-ink">{provider.rate}</span>
-        <span className="text-[10px] text-muted">📍 {provider.location}</span>
+        <span className="flex items-center gap-1 text-[10px] text-muted"><MapPin className="w-3 h-3" /> {provider.location}</span>
       </div>
     </div>
   )

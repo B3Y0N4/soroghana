@@ -111,7 +111,7 @@ function PostJobInner() {
               <select value={form.category} onChange={e => set('category', e.target.value)} className={inputCls}>
                 <option value="">Select a category</option>
                 {categories.map(c => (
-                  <option key={c.slug} value={c.slug}>{c.icon} {c.label}</option>
+                  <option key={c.slug} value={c.slug}>{c.label}</option>
                 ))}
               </select>
             </Field>
