@@ -33,7 +33,7 @@ export default function RequestHero() {
         <div className="flex justify-end px-1 pb-1">
           <button
             onClick={submit}
-            className="flex items-center gap-2 bg-gold hover:bg-gold-dark text-soro-black font-bold text-sm px-5 py-2.5 rounded-btn transition-colors"
+            className="flex items-center gap-2 bg-gradient-to-br from-gold to-gold-dark hover:brightness-105 text-soro-black font-bold text-sm px-5 py-2.5 rounded-btn transition-all"
           >
             Get Matched <ArrowRight className="w-4 h-4" />
           </button>

@@ -5,7 +5,7 @@ export default function ProviderCard({ provider }: { provider: Provider }) {
   return (
     <div className="bg-card-bg border border-border-col rounded-card p-5 hover:shadow-lg hover:border-gold/40 transition-all duration-200 cursor-pointer group">
       <div className="flex items-start justify-between mb-3">
-        <div className="w-12 h-12 rounded-xl bg-gold-50 flex items-center justify-center text-2xl">
+        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center text-2xl">
           {provider.avatar}
         </div>
         <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${provider.tagColor}`}>{provider.tag}</span>

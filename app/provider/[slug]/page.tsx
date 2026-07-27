@@ -187,7 +187,7 @@ export default async function ProviderProfile({ params }: { params: Promise<{ sl
 
                 <Link
                   href={`/post-job?desc=${encodeURIComponent(`I'd like to request ${provider.name} (${provider.title}) for a job.`)}`}
-                  className="flex items-center justify-center w-full bg-gold hover:bg-gold-dark text-soro-black font-bold py-3 rounded-btn text-sm transition-colors mb-3"
+                  className="flex items-center justify-center w-full bg-gradient-to-br from-gold to-gold-dark hover:brightness-105 text-soro-black font-bold py-3 rounded-btn text-sm transition-all mb-3"
                 >
                   Request via Coordinator
                 </Link>

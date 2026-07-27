@@ -90,7 +90,7 @@ export default function JoinPage() {
             </p>
             <a
               href={`/`}
-              className="inline-flex items-center gap-2 bg-gold text-soro-black font-bold px-6 py-3 rounded-btn text-sm hover:bg-gold-dark transition-colors"
+              className="inline-flex items-center gap-2 bg-gradient-to-br from-gold to-gold-dark hover:brightness-105 text-soro-black font-bold px-6 py-3 rounded-btn text-sm transition-all"
             >
               Back to Home
             </a>
@@ -163,7 +163,7 @@ export default function JoinPage() {
                   <button
                     onClick={() => setStep('skills')}
                     disabled={!form.name || !form.title || !form.location || !form.whatsapp || !form.bio}
-                    className="w-full flex items-center justify-center gap-2 bg-gold text-soro-black font-bold py-3 rounded-btn text-sm hover:bg-gold-dark transition-colors disabled:opacity-40"
+                    className="w-full flex items-center justify-center gap-2 bg-gradient-to-br from-gold to-gold-dark hover:brightness-105 text-soro-black font-bold py-3 rounded-btn text-sm transition-all disabled:opacity-40"
                   >
                     Next: Your Skills <ArrowRight className="w-4 h-4" />
                   </button>
@@ -233,7 +233,7 @@ export default function JoinPage() {
                     <button
                       onClick={() => setStep('rates')}
                       disabled={form.categories.length === 0 || form.languages.length === 0 || !form.skills}
-                      className="flex-1 flex items-center justify-center gap-2 bg-gold text-soro-black font-bold py-3 rounded-btn text-sm hover:bg-gold-dark transition-colors disabled:opacity-40"
+                      className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-br from-gold to-gold-dark hover:brightness-105 text-soro-black font-bold py-3 rounded-btn text-sm transition-all disabled:opacity-40"
                     >
                       Next: Set Your Rates <ArrowRight className="w-4 h-4" />
                     </button>
@@ -308,7 +308,7 @@ export default function JoinPage() {
                   Why Soro Ghana?
                 </h3>
 
-                <div className="mb-5 p-4 bg-soro-black rounded-card">
+                <div className="mb-5 p-4 bg-gradient-to-br from-soro-black to-charcoal rounded-card">
                   <p className="text-[11px] text-white/40 uppercase tracking-wide mb-1">Typical Ghana monthly salary</p>
                   <p className="text-lg font-display font-bold text-white/45 line-through decoration-white/30 mb-3">GHS 1,500 – 3,000</p>
                   <p className="text-[11px] text-gold uppercase tracking-wide mb-1">One 3-day Business Assistant booking</p>

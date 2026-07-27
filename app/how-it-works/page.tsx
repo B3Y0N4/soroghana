@@ -95,7 +95,7 @@ export default function HowItWorksPage() {
               ))}
             </div>
             <div className="mt-6">
-              <Link href="/post-job" className="inline-flex items-center gap-2 bg-gold text-soro-black font-bold px-5 py-2.5 rounded-btn text-sm hover:bg-gold-dark transition-colors">
+              <Link href="/post-job" className="inline-flex items-center gap-2 bg-gradient-to-br from-gold to-gold-dark hover:brightness-105 text-soro-black font-bold px-5 py-2.5 rounded-btn text-sm transition-all">
                 Request Help <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

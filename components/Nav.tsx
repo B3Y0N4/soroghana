@@ -58,7 +58,7 @@ export default function Nav() {
           </Link>
           <Link
             href="/post-job"
-            className="bg-gold text-soro-black text-sm font-bold px-4 py-2 rounded-btn hover:bg-gold-dark transition-colors"
+            className="bg-gradient-to-br from-gold to-gold-dark hover:brightness-105 text-soro-black text-sm font-bold px-4 py-2 rounded-btn transition-all"
           >
             Get Matched
           </Link>
@@ -98,7 +98,7 @@ export default function Nav() {
             <Link
               href="/post-job"
               onClick={() => setOpen(false)}
-              className="block text-sm font-bold text-center bg-gold text-soro-black py-2.5 rounded-btn hover:bg-gold-dark transition-colors"
+              className="block text-sm font-bold text-center bg-gradient-to-br from-gold to-gold-dark hover:brightness-105 text-soro-black py-2.5 rounded-btn transition-all"
             >
               Get Matched
             </Link>

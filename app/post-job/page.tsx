@@ -67,7 +67,7 @@ function PostJobInner() {
             We&apos;re matching you with up to 3 vetted pros for this. You&apos;ll hear from us on WhatsApp,
             usually within a few hours — nothing gets charged until you confirm who you want.
           </p>
-          <a href="/browse" className="inline-flex items-center gap-2 bg-gold text-soro-black font-bold px-6 py-3 rounded-btn text-sm hover:bg-gold-dark transition-colors">
+          <a href="/browse" className="inline-flex items-center gap-2 bg-gradient-to-br from-gold to-gold-dark hover:brightness-105 text-soro-black font-bold px-6 py-3 rounded-btn text-sm transition-all">
             Browse Pros in the Meantime <ArrowRight className="w-4 h-4" />
           </a>
         </div>
@@ -184,7 +184,7 @@ function PostJobInner() {
           <button
             onClick={submit}
             disabled={!valid || submitting}
-            className="w-full flex items-center justify-center gap-2 bg-gold text-soro-black font-bold py-3.5 rounded-btn text-sm hover:bg-gold-dark transition-colors disabled:opacity-40"
+            className="w-full flex items-center justify-center gap-2 bg-gradient-to-br from-gold to-gold-dark hover:brightness-105 text-soro-black font-bold py-3.5 rounded-btn text-sm transition-all disabled:opacity-40"
           >
             {submitting ? 'Sending…' : 'Send to Coordinator — It’s Free'} <ArrowRight className="w-4 h-4" />
           </button>

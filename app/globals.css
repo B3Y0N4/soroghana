@@ -22,9 +22,10 @@
   --font-display: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
   --font-body:    var(--font-inter), 'Inter', sans-serif;
 
-  /* Radius */
-  --radius-card: 1rem;
-  --radius-btn:  0.5rem;
+  /* Radius — heavier/softer than a typical marketplace card, closer to
+     modern SaaS shape language, while keeping our own gold/black palette */
+  --radius-card: 1.5rem;
+  --radius-btn:  0.85rem;
   --radius-pill: 9999px;
 
   /* Shadows */

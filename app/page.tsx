@@ -47,7 +47,7 @@ export default async function Home() {
       <Nav />
 
       {/* HERO */}
-      <section className="flex flex-col bg-page-bg pt-nav">
+      <section className="flex flex-col bg-gradient-to-br from-page-bg to-gold-light pt-nav">
         <div className="flex flex-col items-center justify-center flex-1 px-4 py-24 text-center">
           <div className="inline-flex items-center gap-2 border border-gold/40 rounded-full px-4 py-1.5 mb-8">
             <span className="w-2 h-2 rounded-full bg-gold" />
@@ -238,7 +238,7 @@ export default async function Home() {
       </section>
 
       {/* JOIN CTA — the one deliberately bold, dark moment on the page */}
-      <section className="bg-soro-black py-20 px-4">
+      <section className="bg-gradient-to-br from-soro-black to-charcoal py-20 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <div className="text-4xl mb-5">🇬🇭</div>
           <h2 className="font-display font-bold text-white text-3xl sm:text-4xl leading-tight mb-4">
@@ -257,7 +257,7 @@ export default async function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/join"
-              className="bg-gold hover:bg-gold-dark text-soro-black font-bold px-8 py-4 rounded-btn text-sm transition-colors"
+              className="bg-gradient-to-br from-gold to-gold-dark hover:brightness-105 text-soro-black font-bold px-8 py-4 rounded-btn text-sm transition-all"
             >
               Start Earning — It&apos;s Free
             </Link>
